@@ -1,82 +1,98 @@
 package com.buyalskaya.array.entity;
 
-import com.buyalskaya.array.validator.DataValidator;
-
-import java.util.Arrays;
-import java.util.StringJoiner;
+import java.util.OptionalInt;
 
 public class ShellArray {
+    private static final int DEFAULT_SIZE = 0;
+    public static final int MIN_NUMBER_INT = -1000;
+    public static final int MAX_NUMBER_INT = 1000;
     private int[] array;
 
     public ShellArray() {
-        array = new int[0];
+        array = new int[DEFAULT_SIZE];
     }
 
     public ShellArray(int size) {
+        if (size < 0) {
+            size = DEFAULT_SIZE;
+        }
         array = new int[size];
     }
 
     public ShellArray(int[] array) {
-        this.array = array;
-    }
-
-    public int[] getArray() {
-        return array;
-    }
-
-    public void setArray(int[] array) {
-        if (array == null) {
-            this.array = new int[0];
-        } else {
+        if (isCorrectInputArray(array)) {
             this.array = array;
+        } else {
+            this.array = new int[DEFAULT_SIZE];
         }
+    }
+
+    public OptionalInt getElement(int index) {
+        if (isCorrectIndex(index)) {
+            return OptionalInt.of(array[index]);
+        }
+        return OptionalInt.empty();
+    }
+
+    public void setElement(int index, int element) {
+        boolean isCorrectIndex = isCorrectIndex(index);
+        boolean isCorrectNumber = isCorrectNumber(element);
+        if (isCorrectIndex && isCorrectNumber) {
+            array[index] = element;
+        }
+    }
+
+    public int length() {
+        return array.length;
+    }
+
+    private boolean isCorrectIndex(int index) {
+        return (index >= 0) && (index < length());
+    }
+
+    private boolean isCorrectNumber(int number) {
+        return ((number >= MIN_NUMBER_INT) && (number <= MAX_NUMBER_INT));
+    }
+
+    private boolean isCorrectInputArray(int[] array) {
+        boolean isCorrect = false;
+        if (array != null) {
+            isCorrect = true;
+            for (int value : array) {
+                if (!isCorrectNumber(value)) {
+                    return false;
+                }
+            }
+        }
+        return isCorrect;
     }
 
     public boolean add(int number) {
-        DataValidator dataValidator = new DataValidator();
-        boolean isValidate = dataValidator.validateNumber(number);
-        if (isValidate) {
-            int newArrayLength = array.length + 1;
+        boolean isCorrectNumber = isCorrectNumber(number);
+        if (isCorrectNumber) {
+            int arrayLength = length();
+            int newArrayLength = arrayLength + 1;
             int[] newArray = new int[newArrayLength];
-            System.arraycopy(array, 0, newArray, 0, array.length);
+            System.arraycopy(array, 0, newArray, 0, arrayLength);
             newArray[newArrayLength - 1] = number;
-            setArray(newArray);
+            array = newArray;
         }
-        return isValidate;
+        return isCorrectNumber;
     }
 
     public boolean remove(int index) {
-        if (index > array.length - 1 || index < 0) {
+        if (!isCorrectIndex(index)) {
             return false;
         }
-        int newArrayLength = array.length - 1;
+        int arrayLength = length();
+        int newArrayLength = arrayLength - 1;
         int[] newArray = new int[newArrayLength];
         System.arraycopy(array, 0, newArray, 0, index);
-        if (array.length != index) {
-            System.arraycopy(array, index + 1, newArray, index, array.length - index - 1);
+        if (arrayLength != index) {
+            System.arraycopy(array, index + 1, newArray, index, arrayLength - index - 1);
         }
-        setArray(newArray);
+        array = newArray;
         return true;
-    }
-
-    public int minElement() {
-        int min = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (min > array[i]) {
-                min = array[i];
-            }
-        }
-        return min;
-    }
-
-    public int maxElement() {
-        int max = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (max < array[i]) {
-                max = array[i];
-            }
-        }
-        return max;
     }
 
     @Override
@@ -88,8 +104,8 @@ public class ShellArray {
             return false;
         }
         ShellArray shellArray = (ShellArray) obj;
-        int arraySize = shellArray.array.length;
-        int currentArraySize = array.length;
+        int arraySize = shellArray.length();
+        int currentArraySize = length();
         if (arraySize != currentArraySize) {
             return false;
         }
@@ -103,17 +119,32 @@ public class ShellArray {
 
     @Override
     public int hashCode() {
-        int hashCode = array[0] * 31;
-        for (int i = 1; i < array.length; i++) {
-            hashCode = hashCode + array[i];
+        int length = length();
+        int hashCode;
+        if (length <= 0) {
+            hashCode = 0;
+        } else {
+            hashCode = array[0] * 31;
+            for (int i = 1; i < array.length; i++) {
+                hashCode = hashCode + array[i];
+            }
         }
         return hashCode;
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", ShellArray.class.getSimpleName() + "[", "]")
-                .add("array=" + Arrays.toString(array))
-                .toString();
+        StringBuilder sb = new StringBuilder(ShellArray.class.getSimpleName());
+        int length = length();
+        sb.append("{array = [");
+        if (length > 0) {
+            for (int i = 0; i < length - 1; i++) {
+                sb.append(array[i]);
+                sb.append(", ");
+            }
+            sb.append(array[length - 1]);
+        }
+        sb.append("]}");
+        return sb.toString();
     }
 }
