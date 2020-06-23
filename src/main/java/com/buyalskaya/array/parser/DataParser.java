@@ -12,7 +12,7 @@ public class DataParser {
         }
         String[] parseData = data.split(REGEX_DELIMITER);
         DataValidator dataValidator = new DataValidator();
-        if (!dataValidator.validateData(parseData)) {
+        if (!dataValidator.isIntegerArray(parseData)) {
             throw new ProjectException("These data are incorrect");
         }
         return parseData;

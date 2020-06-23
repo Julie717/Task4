@@ -15,10 +15,26 @@ public class ShellArrayCreatorTest {
     }
 
     @Test
-    public void createShellArrayTest() {
+    public void createShellArrayTestPositive() {
         String[] numbers = {"1", "4", "7"};
         ShellArray actual=shellArrayCreator.createShellArray(numbers);
         ShellArray expected = new ShellArray(new int[]{1, 4, 7});
+        assertEquals(actual,expected);
+    }
+
+    @Test
+    public void createShellArrayTestNull() {
+        String[] numbers = null;
+        ShellArray actual=shellArrayCreator.createShellArray(numbers);
+        ShellArray expected = new ShellArray();
+        assertEquals(actual,expected);
+    }
+
+    @Test
+    public void createShellArrayTestEmpty() {
+        String[] numbers ={""};
+        ShellArray actual=shellArrayCreator.createShellArray(numbers);
+        ShellArray expected = new ShellArray();
         assertEquals(actual,expected);
     }
 }

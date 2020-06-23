@@ -42,18 +42,4 @@ public class ShellArrayTest {
         int number = 15;
         assertFalse(shellArray.remove(number));
     }
-
-    @Test
-    public void minElementTest() {
-        int actual = shellArray.minElement();
-        int expected = -5;
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void maxElementTest() {
-        int actual = shellArray.maxElement();
-        int expected = 8;
-        assertEquals(actual, expected);
-    }
 }

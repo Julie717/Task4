@@ -1,6 +1,5 @@
 package com.buyalskaya.array.creator;
 
-import com.buyalskaya.array.entity.ShellArray;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -15,7 +14,7 @@ public class MatrixCreatorTest {
     }
 
     @Test
-    public void createShellArrayTest() {
+    public void  createMatrixTest() {
         String[][] dataMatrix = {{"1", "4", "7"},
                 {"-5", "0"},
                 {"14", "3", "6", "7"},

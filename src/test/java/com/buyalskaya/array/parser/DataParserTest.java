@@ -39,12 +39,6 @@ public class DataParserTest {
     }
 
     @Test
-    public void parseDataToArrayTestValueGreaterMax() {
-        String data = "1 4   5   6 9000 20";
-        assertThrows(ProjectException.class, () -> dataParser.parseDataToArray(data));
-    }
-
-    @Test
     public void parseDataToArrayTestNull() {
         String data = null;
         assertThrows(ProjectException.class, () -> dataParser.parseDataToArray(data));
@@ -68,12 +62,6 @@ public class DataParserTest {
     @Test
     public void parseDataToMatrixTestNegative() {
         String[] data = {"1 4   5   6 9\n 20", "1 2.1 3", "9", "10   -5"};
-        assertThrows(ProjectException.class, () -> dataParser.parseDataToMatrix(data));
-    }
-
-    @Test
-    public void parseDataToMatrixTestValueLessMin() {
-        String[] data = {"1 4   5   6 9\n 20", "1 2.1 3", "9", "10   -5 -1005"};
         assertThrows(ProjectException.class, () -> dataParser.parseDataToMatrix(data));
     }
 

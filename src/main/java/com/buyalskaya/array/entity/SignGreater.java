@@ -1,6 +1,6 @@
 package com.buyalskaya.array.entity;
 
-public class Increase implements OrderSortable {
+public class SignGreater implements OrderComparable {
 
     @Override
     public boolean comparison(int a, int b) {

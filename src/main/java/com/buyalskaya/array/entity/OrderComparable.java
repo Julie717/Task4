@@ -1,5 +1,5 @@
 package com.buyalskaya.array.entity;
 
-public interface OrderSortable {
+public interface OrderComparable {
     boolean comparison(int a, int b);
 }

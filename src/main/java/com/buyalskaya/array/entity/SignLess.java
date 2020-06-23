@@ -1,6 +1,6 @@
 package com.buyalskaya.array.entity;
 
-public class Decrease implements OrderSortable {
+public class SignLess implements OrderComparable {
 
     @Override
     public boolean comparison(int a, int b) {

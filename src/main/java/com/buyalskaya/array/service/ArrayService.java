@@ -1,134 +1,130 @@
 package com.buyalskaya.array.service;
 
+import com.buyalskaya.array.entity.SignGreater;
+import com.buyalskaya.array.entity.SignLess;
+import com.buyalskaya.array.entity.OrderComparable;
 import com.buyalskaya.array.entity.ShellArray;
 import com.buyalskaya.array.exception.ProjectException;
 
-import java.util.Optional;
+import java.util.OptionalInt;
 
 public class ArrayService {
-    public Optional<Integer> findIndexElement(ShellArray shellArray, int number) throws ProjectException {
+
+    public OptionalInt searchIndexMinOrMax(ShellArray shellArray, int startIndex,
+                                           OrderComparable orderSortable) { //SignGreater - max, SignLess - min
+        if (shellArray == null || shellArray.length() <= 0 ||
+                startIndex < 0 || startIndex >= shellArray.length() ) {
+            return OptionalInt.empty();
+        }
+        int desiredIndex = startIndex;
+        int length = shellArray.length();
+        for (int i = startIndex + 1; i < length; i++) {
+            if (orderSortable.comparison(shellArray.getElement(i).getAsInt(),
+                    shellArray.getElement(desiredIndex).getAsInt())) {
+                desiredIndex = i;
+            }
+        }
+        return OptionalInt.of(desiredIndex);
+    }
+
+    public OptionalInt searchMinElement(ShellArray shellArray) {
+        OptionalInt minElementIndex = searchIndexMinOrMax(shellArray, 0, new SignLess());
+        OptionalInt minElement = OptionalInt.empty();
+        if (minElementIndex.isPresent()) {
+            minElement = OptionalInt.of(shellArray.getElement(minElementIndex.getAsInt()).getAsInt());
+        }
+        return minElement;
+    }
+
+    public OptionalInt searchMaxElement(ShellArray shellArray) {
+        OptionalInt maxElementIndex = searchIndexMinOrMax(shellArray, 0, new SignGreater());
+        OptionalInt maxElement = OptionalInt.empty();
+        if (maxElementIndex.isPresent()) {
+            maxElement = OptionalInt.of(shellArray.getElement(maxElementIndex.getAsInt()).getAsInt());
+        }
+        return maxElement;
+    }
+
+    public OptionalInt binarySearchIndexElement(ShellArray shellArray, int number) throws ProjectException {
         if (shellArray != null) {
             if (!isAscendingOrderedArray(shellArray)) {
                 throw new ProjectException("Array hasn't ascending order");
             }
-            int[] array = shellArray.getArray();
             int firstIndex = 0;
-            int lastIndex = array.length - 1;
+            int lastIndex = shellArray.length() - 1;
             int middleIndex;
+            int elementMiddleIndex;
             while (firstIndex <= lastIndex) {
                 middleIndex = firstIndex + (lastIndex - firstIndex) / 2;
-                if (number == array[middleIndex]) {
-                    return Optional.of(middleIndex);
+                elementMiddleIndex = shellArray.getElement(middleIndex).getAsInt();
+                if (number == elementMiddleIndex) {
+                    return OptionalInt.of(middleIndex);
                 }
-                if (number > array[middleIndex]) {
+                if (number > elementMiddleIndex) {
                     firstIndex = middleIndex + 1;
                 }
-                if (number < array[middleIndex]) {
+                if (number < elementMiddleIndex) {
                     lastIndex = middleIndex - 1;
                 }
             }
         }
-        return Optional.empty();
+        return OptionalInt.empty();
     }
 
     private boolean isAscendingOrderedArray(ShellArray shellArray) {
         boolean isOrdered = true;
-        int[] array = shellArray.getArray();
-        for (int i = 1; i < array.length; i++) {
-            if (array[i - 1] > array[i]) {
+        for (int i = 1; i < shellArray.length(); i++) {
+            if (shellArray.getElement(i - 1).getAsInt() > shellArray.getElement(i).getAsInt()) {
                 isOrdered = false;
             }
         }
         return isOrdered;
     }
 
-    public ShellArray findPrimeNumber(ShellArray shellArray) {
+    public ShellArray searchPrimeNumber(ShellArray shellArray) {
         ShellArray primeArray = new ShellArray();
+        NumberService numberService = new NumberService();
         if (shellArray != null) {
-            int[] array = shellArray.getArray();
-            for (int i = 0; i < array.length; i++) {
-                if (isPrime(array[i])) {
-                    primeArray.add(array[i]);
+            for (int i = 0; i < shellArray.length(); i++) {
+                if (numberService.isPrime(shellArray.getElement(i).getAsInt())) {
+                    primeArray.add(shellArray.getElement(i).getAsInt());
                 }
             }
         }
         return primeArray;
     }
 
-    private boolean isPrime(int number) {
-        if (number <= 1) {
-            return false;
-        }
-        for (int i = 2; i <= number / 2; i++) {
-            if (number % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public ShellArray findFibonacciNumber(ShellArray shellArray) {
+    public ShellArray searchFibonacciNumber(ShellArray shellArray) {
         ShellArray fibonacciArray = new ShellArray();
+        NumberService numberService = new NumberService();
         if (shellArray != null) {
-            int[] array = shellArray.getArray();
-            for (int i = 0; i < array.length; i++) {
-                if (isFibonacci(array[i])) {
-                    fibonacciArray.add(array[i]);
+            for (int i = 0; i < shellArray.length(); i++) {
+                if (numberService.isFibonacci(shellArray.getElement(i).getAsInt())) {
+                    fibonacciArray.add(shellArray.getElement(i).getAsInt());
                 }
             }
         }
         return fibonacciArray;
     }
 
-    private boolean isFibonacci(int number) {
-        int firstFibonacci = 1;
-        int secondFibonacci = 1;
-        int temp;
-        for (int i = 1; i <= number; i++) {
-            if (number == firstFibonacci || number == secondFibonacci) {
-                return true;
-            }
-            temp = firstFibonacci;
-            firstFibonacci = secondFibonacci;
-            secondFibonacci = temp + secondFibonacci;
-        }
-        return false;
-    }
-
-    public ShellArray findNumberWithoutIdenticalDigits(ShellArray shellArray, int numberDigit) throws ProjectException {
+    public ShellArray searchNumberWithDifferentDigits(ShellArray shellArray, int numberDigit) throws
+            ProjectException {
         if (numberDigit <= 0) {
             throw new ProjectException("Incorrect number of digits");
         }
         ShellArray resultArray = new ShellArray();
         if (shellArray != null) {
-            int[] array = shellArray.getArray();
             int amountOfDigit;
-            for (int i = 0; i < array.length; i++) {
-                amountOfDigit = calculateNumberDigit(array[i]);
+            NumberService numberService = new NumberService();
+            for (int i = 0; i < shellArray.length(); i++) {
+                amountOfDigit = numberService.calculateNumberDigit(shellArray.getElement(i).getAsInt());
                 if (amountOfDigit == numberDigit) {
-                    if (isDifferentDigits(array[i])) {
-                        resultArray.add(array[i]);
+                    if (numberService.isDifferentDigits(shellArray.getElement(i).getAsInt())) {
+                        resultArray.add(shellArray.getElement(i).getAsInt());
                     }
                 }
             }
         }
         return resultArray;
-    }
-
-    private int calculateNumberDigit(int number) {
-        String numberString = Integer.toString(number);
-        return (number >= 0) ? numberString.length() : (numberString.length() - 1); //-1 because a sign "-"
-    }
-
-    private boolean isDifferentDigits(int number) {
-        String numberString = Integer.toString(number);
-        for (int i = 0; i < numberString.length(); i++) {
-            for (int j = i + 1; j < numberString.length(); j++) {
-                if (numberString.charAt(i) == numberString.charAt(j)) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 }

@@ -1,9 +1,6 @@
 package com.buyalskaya.array.service;
 
-import com.buyalskaya.array.entity.Decrease;
-import com.buyalskaya.array.entity.Increase;
-import com.buyalskaya.array.entity.ShellArray;
-import com.buyalskaya.array.entity.TypeSorting;
+import com.buyalskaya.array.entity.*;
 import com.buyalskaya.array.exception.ProjectException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -21,8 +18,8 @@ public class SortingServiceTest {
         sortingService = new SortingService();
     }
 
-    @DataProvider(name = "dataForArraySorting")
-    public Object[][] dataForArraySorting() {
+    @DataProvider(name = "dataForArraySortingIncrease")
+    public Object[][] dataForArraySortingIncrease() {
         return new Object[][]{
                 {new ShellArray(new int[]{10, -8, 0, 1, 2, 5, 9}), new ShellArray(new int[]{-8, 0, 1, 2, 5, 9, 10})},
                 {new ShellArray(new int[]{-8, 0, 1, 2, 5, 9, 10}), new ShellArray(new int[]{-8, 0, 1, 2, 5, 9, 10})},
@@ -32,21 +29,50 @@ public class SortingServiceTest {
         };
     }
 
-    @Test(dataProvider = "dataForArraySorting")
-    public void bubbleSortArrayTestParams(ShellArray shellArray, ShellArray expected) {
-        sortingService.bubbleSort(shellArray);
+    @DataProvider(name = "dataForArraySortingDecrease")
+    public Object[][] dataForArraySortingDecrease() {
+        return new Object[][]{
+                {new ShellArray(new int[]{10, -8, 0, 1, 2, 5, 9}), new ShellArray(new int[]{10, 9, 5, 2, 1, 0,-8})},
+                {new ShellArray(new int[]{-8, 0, 1, 2, 5, 9, 10}), new ShellArray(new int[]{10, 9, 5, 2, 1, 0,-8})},
+                {new ShellArray(new int[]{10, 9, 5, 2, 1, 0, -8}), new ShellArray(new int[]{10, 9, 5, 2, 1, 0,-8})},
+                {new ShellArray(), new ShellArray()},
+                {null, null}
+        };
+    }
+
+    @Test(dataProvider = "dataForArraySortingIncrease")
+    public void bubbleSortArrayTestParamsIncrease(ShellArray shellArray, ShellArray expected) {
+        sortingService.bubbleSort(shellArray, SortingDirection.INCREASE);
         assertEquals(shellArray, expected);
     }
 
-    @Test(dataProvider = "dataForArraySorting")
-    public void straightInsertionSortTestParams(ShellArray shellArray, ShellArray expected) {
-        sortingService.straightInsertionSort(shellArray);
+    @Test(dataProvider = "dataForArraySortingDecrease")
+    public void bubbleSortArrayTestParamsDecrease(ShellArray shellArray, ShellArray expected) {
+        sortingService.bubbleSort(shellArray,SortingDirection.DECREASE);
         assertEquals(shellArray, expected);
     }
 
-    @Test(dataProvider = "dataForArraySorting")
-    public void straightSelectionSortTestParams(ShellArray shellArray, ShellArray expected) {
-        sortingService.straightInsertionSort(shellArray);
+    @Test(dataProvider = "dataForArraySortingIncrease")
+    public void straightInsertionSortTestParamsIncrease(ShellArray shellArray, ShellArray expected) {
+        sortingService.straightInsertionSort(shellArray,SortingDirection.INCREASE);
+        assertEquals(shellArray, expected);
+    }
+
+    @Test(dataProvider = "dataForArraySortingDecrease")
+    public void straightInsertionSortTestParamsDecrease(ShellArray shellArray, ShellArray expected) {
+        sortingService.straightInsertionSort(shellArray,SortingDirection.DECREASE);
+        assertEquals(shellArray, expected);
+    }
+
+    @Test(dataProvider = "dataForArraySortingIncrease")
+    public void straightSelectionSortTestParamsIncrease(ShellArray shellArray, ShellArray expected) {
+        sortingService.straightSelectionSort(shellArray,SortingDirection.INCREASE);
+        assertEquals(shellArray, expected);
+    }
+
+    @Test(dataProvider = "dataForArraySortingDecrease")
+    public void straightSelectionSortTestParamsDecrease(ShellArray shellArray, ShellArray expected) {
+        sortingService.straightSelectionSort(shellArray,SortingDirection.DECREASE);
         assertEquals(shellArray, expected);
     }
 
@@ -68,8 +94,7 @@ public class SortingServiceTest {
                 {1, 2},
                 {0}};
         try {
-            sortingService.bubbleSort(matrix, TypeSorting.SUM, new Decrease());
-
+            sortingService.bubbleSort(matrix, SortingType.SUM, SortingDirection.DECREASE);
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
             fail("Incorrect input data");
@@ -84,7 +109,7 @@ public class SortingServiceTest {
                 {6, -2, 3},
                 {2, 4, 7}};
         try {
-            sortingService.bubbleSort(matrix, TypeSorting.SUM, new Increase());
+            sortingService.bubbleSort(matrix, SortingType.SUM,SortingDirection.INCREASE);
 
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
@@ -100,7 +125,7 @@ public class SortingServiceTest {
                 {1, 2},
                 {0}};
         try {
-            sortingService.bubbleSort(matrix, TypeSorting.MAX, new Decrease());
+            sortingService.bubbleSort(matrix, SortingType.MAX, SortingDirection.DECREASE);
 
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
@@ -116,7 +141,7 @@ public class SortingServiceTest {
                 {2, 4, 7},
                 {-8, 4, 10}};
         try {
-            sortingService.bubbleSort(matrix, TypeSorting.MAX, new Increase());
+            sortingService.bubbleSort(matrix, SortingType.MAX, SortingDirection.INCREASE);
 
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
@@ -132,7 +157,7 @@ public class SortingServiceTest {
                 {6, -2, 3},
                 {-8, 4, 10}};
         try {
-            sortingService.bubbleSort(matrix, TypeSorting.MIN, new Decrease());
+            sortingService.bubbleSort(matrix, SortingType.MIN, SortingDirection.DECREASE);
 
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
@@ -148,7 +173,7 @@ public class SortingServiceTest {
                 {1, 2},
                 {2, 4, 7}};
         try {
-            sortingService.bubbleSort(matrix, TypeSorting.MIN, new Increase());
+            sortingService.bubbleSort(matrix, SortingType.MIN, SortingDirection.INCREASE);
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
             fail("Incorrect input data");
@@ -158,12 +183,12 @@ public class SortingServiceTest {
     @Test
     public void bubbleSortMatrixTestTypeSortingNull() {
         assertThrows(ProjectException.class,
-                () -> sortingService.bubbleSort(matrix, null, new Increase()));
+                () -> sortingService.bubbleSort(matrix, null, SortingDirection.DECREASE));
     }
 
     @Test
-    public void bubbleSortMatrixTestOrderSortableNull() {
+    public void bubbleSortMatrixTestOrderComparableNull() {
         assertThrows(ProjectException.class,
-                () -> sortingService.bubbleSort(matrix, TypeSorting.SUM, null));
+                () -> sortingService.bubbleSort(matrix, SortingType.SUM, null));
     }
 }

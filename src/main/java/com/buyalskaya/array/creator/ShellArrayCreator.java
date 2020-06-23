@@ -7,7 +7,11 @@ public class ShellArrayCreator {
     public static final int MAX_RANDOM_NUMBER = 50;
 
     public ShellArray createShellArray(String[] data) {
+        if (data == null) {
+            return null;
+        }
         int size = data.length;
+        System.out.println(size);
         int[] array = new int[size];
         for (int i = 0; i < size; i++) {
             array[i] = Integer.parseInt(data[i]);
@@ -16,10 +20,11 @@ public class ShellArrayCreator {
     }
 
     public ShellArray createRandomShellArray(int size) {
-        int[] array = new int[size];
+        ShellArray shellArray = new ShellArray(size);
         for (int i = 0; i < size; i++) {
-            array[i] = MIN_RANDOM_NUMBER + (int) (Math.random() * (MAX_RANDOM_NUMBER - MIN_RANDOM_NUMBER) + 1);
+            shellArray.setElement(i, MIN_RANDOM_NUMBER +
+                    (int) (Math.random() * (MAX_RANDOM_NUMBER - MIN_RANDOM_NUMBER) + 1));
         }
-        return new ShellArray(array);
+        return shellArray;
     }
 }

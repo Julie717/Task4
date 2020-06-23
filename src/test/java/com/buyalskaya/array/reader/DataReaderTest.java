@@ -28,6 +28,18 @@ public class DataReaderTest {
     }
 
     @Test
+    public void readArrayFromFileTestNull() {
+        String filePath = null;
+        assertThrows(RuntimeException.class, () -> dataReader.readArrayFromFile(filePath));
+    }
+
+    @Test
+    public void readArrayFromFileTestEmpty() {
+        String filePath = "";
+        assertThrows(RuntimeException.class, () -> dataReader.readArrayFromFile(filePath));
+    }
+
+    @Test
     public void readMatrixFromFileTestPositive() {
         String filePath = "resources/matrix.txt";
         String[] actual = dataReader.readMatrixFromFile(filePath);
@@ -43,6 +55,18 @@ public class DataReaderTest {
     @Test
     public void readMatrixFromFileTestNegative() {
         String filePath = "resources/input.txt";
+        assertThrows(RuntimeException.class, () -> dataReader.readMatrixFromFile(filePath));
+    }
+
+    @Test
+    public void readMatrixFromFileTestNull() {
+        String filePath = null;
+        assertThrows(RuntimeException.class, () -> dataReader.readMatrixFromFile(filePath));
+    }
+
+    @Test
+    public void readMatrixFromFileTestEmpty() {
+        String filePath = "";
         assertThrows(RuntimeException.class, () -> dataReader.readMatrixFromFile(filePath));
     }
 }
