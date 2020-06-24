@@ -1,8 +1,8 @@
 package com.buyalskaya.array.service;
 
-import com.buyalskaya.array.entity.SignGreater;
-import com.buyalskaya.array.entity.SignLess;
-import com.buyalskaya.array.entity.OrderComparable;
+import com.buyalskaya.array.comparator.AscendantComparator;
+import com.buyalskaya.array.comparator.DescendantComparator;
+import com.buyalskaya.array.comparator.NumberComparable;
 import com.buyalskaya.array.entity.ShellArray;
 import com.buyalskaya.array.exception.ProjectException;
 
@@ -11,15 +11,16 @@ import java.util.OptionalInt;
 public class ArrayService {
 
     public OptionalInt searchIndexMinOrMax(ShellArray shellArray, int startIndex,
-                                           OrderComparable orderSortable) { //SignGreater - max, SignLess - min
+                                           NumberComparable numberComparable) {
+        //AscendantComparator - max, DescendantComparator - min
         if (shellArray == null || shellArray.length() <= 0 ||
-                startIndex < 0 || startIndex >= shellArray.length() ) {
+                startIndex < 0 || startIndex >= shellArray.length()) {
             return OptionalInt.empty();
         }
         int desiredIndex = startIndex;
         int length = shellArray.length();
         for (int i = startIndex + 1; i < length; i++) {
-            if (orderSortable.comparison(shellArray.getElement(i).getAsInt(),
+            if (numberComparable.compareTo(shellArray.getElement(i).getAsInt(),
                     shellArray.getElement(desiredIndex).getAsInt())) {
                 desiredIndex = i;
             }
@@ -28,7 +29,8 @@ public class ArrayService {
     }
 
     public OptionalInt searchMinElement(ShellArray shellArray) {
-        OptionalInt minElementIndex = searchIndexMinOrMax(shellArray, 0, new SignLess());
+        int firstIndex = 0;
+        OptionalInt minElementIndex = searchIndexMinOrMax(shellArray, firstIndex, new DescendantComparator());
         OptionalInt minElement = OptionalInt.empty();
         if (minElementIndex.isPresent()) {
             minElement = OptionalInt.of(shellArray.getElement(minElementIndex.getAsInt()).getAsInt());
@@ -37,7 +39,8 @@ public class ArrayService {
     }
 
     public OptionalInt searchMaxElement(ShellArray shellArray) {
-        OptionalInt maxElementIndex = searchIndexMinOrMax(shellArray, 0, new SignGreater());
+        int firstIndex = 0;
+        OptionalInt maxElementIndex = searchIndexMinOrMax(shellArray, firstIndex, new AscendantComparator());
         OptionalInt maxElement = OptionalInt.empty();
         if (maxElementIndex.isPresent()) {
             maxElement = OptionalInt.of(shellArray.getElement(maxElementIndex.getAsInt()).getAsInt());
@@ -107,8 +110,8 @@ public class ArrayService {
         return fibonacciArray;
     }
 
-    public ShellArray searchNumberWithDifferentDigits(ShellArray shellArray, int numberDigit) throws
-            ProjectException {
+    public ShellArray searchNumberWithDifferentDigits(ShellArray shellArray,
+                                                      int numberDigit) throws ProjectException {
         if (numberDigit <= 0) {
             throw new ProjectException("Incorrect number of digits");
         }

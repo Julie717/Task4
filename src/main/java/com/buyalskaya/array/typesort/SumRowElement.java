@@ -1,4 +1,4 @@
-package com.buyalskaya.array.entity;
+package com.buyalskaya.array.typesort;
 
 import java.util.function.Function;
 
@@ -6,6 +6,9 @@ public class SumRowElement implements Function<int[][], int[]> {
 
     @Override
     public int[] apply(int[][] matrix) {
+        if (matrix == null) {
+            return null;
+        }
         int amountRow = matrix.length;
         int[] sumRowElement = new int[amountRow];
         for (int i = 0; i < amountRow; i++) {
@@ -15,6 +18,9 @@ public class SumRowElement implements Function<int[][], int[]> {
     }
 
     private int calculateSum(int[] array) {
+        if (array.length <= 0) {
+            return Integer.MIN_VALUE;
+        }
         int sum = 0;
         for (int i = 0; i < array.length; i++) {
             sum = sum + array[i];

@@ -1,8 +1,12 @@
 package com.buyalskaya.array.creator;
 
+import com.buyalskaya.array.validator.DataValidator;
+
 public class MatrixCreator {
     public int[][] createMatrix(String[][] data) {
-        if (data == null) {
+        DataValidator dataValidator = new DataValidator();
+        boolean isIntegerData = dataValidator.isIntegerMatrix(data);
+        if (!isIntegerData) {
             return null;
         }
         int amountRow = data.length;

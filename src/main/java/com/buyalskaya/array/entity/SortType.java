@@ -1,6 +1,6 @@
 package com.buyalskaya.array.entity;
 
-public enum SortingType {
+public enum SortType {
     SUM,
     MAX,
     MIN

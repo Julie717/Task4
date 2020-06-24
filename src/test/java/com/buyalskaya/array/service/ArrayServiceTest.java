@@ -1,8 +1,8 @@
 package com.buyalskaya.array.service;
 
-import com.buyalskaya.array.entity.SignGreater;
-import com.buyalskaya.array.entity.SignLess;
-import com.buyalskaya.array.entity.OrderComparable;
+import com.buyalskaya.array.comparator.AscendantComparator;
+import com.buyalskaya.array.comparator.DescendantComparator;
+import com.buyalskaya.array.comparator.NumberComparable;
 import com.buyalskaya.array.entity.ShellArray;
 import com.buyalskaya.array.exception.ProjectException;
 import org.testng.annotations.BeforeClass;
@@ -25,22 +25,22 @@ public class ArrayServiceTest {
     @DataProvider(name = "dataForSearchIndexMinOrMax")
     public Object[][] dataForSearchIndexMinOrMax() {
         return new Object[][]{
-                {new ShellArray(new int[]{1, 2, 5, 9}), 0, new SignLess(), OptionalInt.of(0)},
-                {new ShellArray(new int[]{1, 18, 10, 9}), 0, new SignGreater(), OptionalInt.of(1)},
-                {new ShellArray(new int[]{0, -2, -5, 9}), 0, new SignGreater(), OptionalInt.of(3)},
-                {new ShellArray(new int[]{0, -2, -5, 9, 7, -1, 2, 4}), 3, new SignLess(), OptionalInt.of(5)},
-                {new ShellArray(new int[]{0, -2, -5, 9, 7, -1, 2, 4}), 3, new SignGreater(), OptionalInt.of(3)},
-                {new ShellArray(new int[]{10, -8, 0, 1, 2, 5, 9}), 6, new SignGreater(), OptionalInt.of(6)},
-                {new ShellArray(new int[]{1, 18, 10, 9}), -1, new SignGreater(), OptionalInt.empty()},
-                {new ShellArray(new int[]{1, 18, 10, 9}), 4, new SignGreater(), OptionalInt.empty()},
-                {new ShellArray(), 3, new SignGreater(), OptionalInt.empty()},
-                {null, 3, new SignGreater(), OptionalInt.empty()}
+                {new ShellArray(new int[]{1, 2, 5, 9}), 0, new DescendantComparator(), OptionalInt.of(0)},
+                {new ShellArray(new int[]{1, 18, 10, 9}), 0, new AscendantComparator(), OptionalInt.of(1)},
+                {new ShellArray(new int[]{0, -2, -5, 9}), 0, new AscendantComparator(), OptionalInt.of(3)},
+                {new ShellArray(new int[]{0, -2, -5, 9, 7, -1, 2, 4}), 3, new DescendantComparator(), OptionalInt.of(5)},
+                {new ShellArray(new int[]{0, -2, -5, 9, 7, -1, 2, 4}), 3, new AscendantComparator(), OptionalInt.of(3)},
+                {new ShellArray(new int[]{10, -8, 0, 1, 2, 5, 9}), 6, new AscendantComparator(), OptionalInt.of(6)},
+                {new ShellArray(new int[]{1, 18, 10, 9}), -1, new AscendantComparator(), OptionalInt.empty()},
+                {new ShellArray(new int[]{1, 18, 10, 9}), 4, new AscendantComparator(), OptionalInt.empty()},
+                {new ShellArray(), 3, new AscendantComparator(), OptionalInt.empty()},
+                {null, 3, new AscendantComparator(), OptionalInt.empty()}
         };
     }
 
     @Test(dataProvider = "dataForSearchIndexMinOrMax")
     public void searchIndexMinOrMaxTestParams(ShellArray shellArray, int startIndex,
-                                              OrderComparable orderSortable, OptionalInt expected) {
+                                              NumberComparable orderSortable, OptionalInt expected) {
         OptionalInt actual = arrayService.searchIndexMinOrMax(shellArray, startIndex, orderSortable);
         assertEquals(actual, expected);
     }

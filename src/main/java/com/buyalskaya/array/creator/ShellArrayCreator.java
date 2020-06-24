@@ -1,17 +1,19 @@
 package com.buyalskaya.array.creator;
 
 import com.buyalskaya.array.entity.ShellArray;
+import com.buyalskaya.array.validator.DataValidator;
 
 public class ShellArrayCreator {
     public static final int MIN_RANDOM_NUMBER = -50;
     public static final int MAX_RANDOM_NUMBER = 50;
 
     public ShellArray createShellArray(String[] data) {
-        if (data == null) {
-            return null;
+        DataValidator dataValidator = new DataValidator();
+        boolean isIntegerData = dataValidator.isIntegerArray(data);
+        if (!isIntegerData) {
+            return new ShellArray();
         }
         int size = data.length;
-        System.out.println(size);
         int[] array = new int[size];
         for (int i = 0; i < size; i++) {
             array[i] = Integer.parseInt(data[i]);
