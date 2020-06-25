@@ -1,18 +1,16 @@
 package com.buyalskaya.array.service;
 
-import com.buyalskaya.array.comparator.AscendantComparator;
-import com.buyalskaya.array.comparator.DescendantComparator;
-import com.buyalskaya.array.comparator.NumberComparable;
 import com.buyalskaya.array.entity.ShellArray;
+import com.buyalskaya.array.entity.SortDirection;
 import com.buyalskaya.array.exception.ProjectException;
 
 import java.util.OptionalInt;
 
 public class ArrayService {
 
-    public OptionalInt searchIndexMinOrMax(ShellArray shellArray, int startIndex,
-                                           NumberComparable numberComparable) {
-        //AscendantComparator - max, DescendantComparator - min
+    public OptionalInt searchIndexExtremum(ShellArray shellArray, int startIndex,
+                                           SortDirection sortDirection) {
+        //If sortDirection is DECREASE than max, if sortDirection is INCREASE than min
         if (shellArray == null || shellArray.length() <= 0 ||
                 startIndex < 0 || startIndex >= shellArray.length()) {
             return OptionalInt.empty();
@@ -20,7 +18,7 @@ public class ArrayService {
         int desiredIndex = startIndex;
         int length = shellArray.length();
         for (int i = startIndex + 1; i < length; i++) {
-            if (numberComparable.compareTo(shellArray.getElement(i).getAsInt(),
+            if (sortDirection.test(shellArray.getElement(i).getAsInt(),
                     shellArray.getElement(desiredIndex).getAsInt())) {
                 desiredIndex = i;
             }
@@ -30,7 +28,7 @@ public class ArrayService {
 
     public OptionalInt searchMinElement(ShellArray shellArray) {
         int firstIndex = 0;
-        OptionalInt minElementIndex = searchIndexMinOrMax(shellArray, firstIndex, new DescendantComparator());
+        OptionalInt minElementIndex = searchIndexExtremum(shellArray, firstIndex, SortDirection.INCREASE);
         OptionalInt minElement = OptionalInt.empty();
         if (minElementIndex.isPresent()) {
             minElement = OptionalInt.of(shellArray.getElement(minElementIndex.getAsInt()).getAsInt());
@@ -40,7 +38,7 @@ public class ArrayService {
 
     public OptionalInt searchMaxElement(ShellArray shellArray) {
         int firstIndex = 0;
-        OptionalInt maxElementIndex = searchIndexMinOrMax(shellArray, firstIndex, new AscendantComparator());
+        OptionalInt maxElementIndex = searchIndexExtremum(shellArray, firstIndex, SortDirection.DECREASE);
         OptionalInt maxElement = OptionalInt.empty();
         if (maxElementIndex.isPresent()) {
             maxElement = OptionalInt.of(shellArray.getElement(maxElementIndex.getAsInt()).getAsInt());

@@ -1,42 +1,42 @@
-package com.buyalskaya.array.typesort;
+package com.buyalskaya.array.function;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
-public class SumRowElementTest {
-    SumRowElement sumRowElement;
+public class MaxRowElementTest {
+    MaxRowElement maxRowElement;
 
     @BeforeClass
     public void setUp() {
-        sumRowElement = new SumRowElement();
+        maxRowElement = new MaxRowElement();
     }
 
-    @DataProvider(name = "dataForSumRowElement")
-    public Object[][] dataForMaxSumElement() {
+    @DataProvider(name = "dataForMaxRowElement")
+    public Object[][] dataForMaxRowElement() {
         return new Object[][]{
                 {new int[][]{{10, -8, 0, 1, 2, 5, 9},
                         {1, 4},
                         {9, 8, 0},
                         {2},
                         {-1, -1, 2}},
-                        new int[]{19, 5, 17, 2, 0}},
+                        new int[]{10, 4, 9, 2, 2}},
                 {new int[][]{{},
                         {1, 2},
                         {9, 8, 0},
                         {2},
                         {-1, 0, 2}},
-                        new int[]{Integer.MIN_VALUE, 3, 17, 2, 1}},
+                        new int[]{Integer.MIN_VALUE, 2, 9, 2, 2}},
                 {new int[][]{}, new int[]{}},
                 {null, new int[]{}}
         };
     }
 
-    @Test(dataProvider = "dataForSumRowElement")
-    public void sumRowElementTestParams(int[][] matrix, int[] expected) {
-        int[] actual = sumRowElement.apply(matrix);
+    @Test(dataProvider = "dataForMaxRowElement")
+    public void maxRowElementTestParams(int[][] matrix, int[] expected) {
+        int[] actual = maxRowElement.apply(matrix);
         assertEquals(actual, expected);
     }
 }

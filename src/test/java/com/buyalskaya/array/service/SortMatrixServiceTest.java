@@ -36,7 +36,7 @@ public class SortMatrixServiceTest {
                 {1, 2},
                 {0}};
         try {
-            sortMatrixService.bubbleSort(matrix, SortType.SUM, SortDirection.DECREASE);
+            sortMatrixService.bubbleSort(matrix, SortType.SUM_ROW_ELEMENT, SortDirection.DECREASE);
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
             fail("Incorrect input data");
@@ -51,7 +51,7 @@ public class SortMatrixServiceTest {
                 {6, -2, 3},
                 {2, 4, 7}};
         try {
-            sortMatrixService.bubbleSort(matrix, SortType.SUM, SortDirection.INCREASE);
+            sortMatrixService.bubbleSort(matrix, SortType.SUM_ROW_ELEMENT, SortDirection.INCREASE);
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
             fail("Incorrect input data");
@@ -66,7 +66,7 @@ public class SortMatrixServiceTest {
                 {1, 2},
                 {0}};
         try {
-            sortMatrixService.bubbleSort(matrix, SortType.MAX, SortDirection.DECREASE);
+            sortMatrixService.bubbleSort(matrix, SortType.MAX_ROW_ELEMENT, SortDirection.DECREASE);
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
             fail("Incorrect input data");
@@ -81,7 +81,7 @@ public class SortMatrixServiceTest {
                 {2, 4, 7},
                 {-8, 4, 10}};
         try {
-            sortMatrixService.bubbleSort(matrix, SortType.MAX, SortDirection.INCREASE);
+            sortMatrixService.bubbleSort(matrix, SortType.MAX_ROW_ELEMENT, SortDirection.INCREASE);
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
             fail("Incorrect input data");
@@ -96,7 +96,7 @@ public class SortMatrixServiceTest {
                 {6, -2, 3},
                 {-8, 4, 10}};
         try {
-            sortMatrixService.bubbleSort(matrix, SortType.MIN, SortDirection.DECREASE);
+            sortMatrixService.bubbleSort(matrix, SortType.MIN_ROW_ELEMENT, SortDirection.DECREASE);
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
             fail("Incorrect input data");
@@ -111,7 +111,7 @@ public class SortMatrixServiceTest {
                 {1, 2},
                 {2, 4, 7}};
         try {
-            sortMatrixService.bubbleSort(matrix, SortType.MIN, SortDirection.INCREASE);
+            sortMatrixService.bubbleSort(matrix, SortType.MIN_ROW_ELEMENT, SortDirection.INCREASE);
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
             fail("Incorrect input data");
@@ -127,14 +127,14 @@ public class SortMatrixServiceTest {
     @Test
     public void bubbleSortMatrixTestOrderComparableNull() {
         assertThrows(ProjectException.class,
-                () -> sortMatrixService.bubbleSort(matrix, SortType.SUM, null));
+                () -> sortMatrixService.bubbleSort(matrix, SortType.SUM_ROW_ELEMENT, null));
     }
 
     @Test
     public void bubbleSortMatrixTestMatrixNull() {
         int[][] matrix = null;
         assertThrows(ProjectException.class,
-                () -> sortMatrixService.bubbleSort(matrix, SortType.SUM, SortDirection.DECREASE));
+                () -> sortMatrixService.bubbleSort(matrix, SortType.SUM_ROW_ELEMENT, SortDirection.DECREASE));
     }
 
     @Test
@@ -146,7 +146,7 @@ public class SortMatrixServiceTest {
                 {1, 2},
                 {2, 4, 7}};
         try {
-            sortMatrixService.bubbleSort(matrix, SortType.MIN, SortDirection.INCREASE);
+            sortMatrixService.bubbleSort(matrix, SortType.MIN_ROW_ELEMENT, SortDirection.INCREASE);
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
             fail("Incorrect input data");
@@ -162,7 +162,7 @@ public class SortMatrixServiceTest {
                 {0},
                 {}};
         try {
-            sortMatrixService.bubbleSort(matrix, SortType.MAX, SortDirection.DECREASE);
+            sortMatrixService.bubbleSort(matrix, SortType.MAX_ROW_ELEMENT, SortDirection.DECREASE);
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
             fail("Incorrect input data");
@@ -178,7 +178,7 @@ public class SortMatrixServiceTest {
                 {0},
                 {}};
         try {
-            sortMatrixService.bubbleSort(matrix, SortType.SUM, SortDirection.DECREASE);
+            sortMatrixService.bubbleSort(matrix, SortType.SUM_ROW_ELEMENT, SortDirection.DECREASE);
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
             fail("Incorrect input data");
@@ -190,7 +190,7 @@ public class SortMatrixServiceTest {
         matrix = new int[][]{};
         int[][] expected = new int[][]{};
         try {
-            sortMatrixService.bubbleSort(matrix, SortType.SUM, SortDirection.DECREASE);
+            sortMatrixService.bubbleSort(matrix, SortType.SUM_ROW_ELEMENT, SortDirection.DECREASE);
             assertEquals(matrix, expected);
         } catch (ProjectException ex) {
             fail("Incorrect input data");

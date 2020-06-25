@@ -73,7 +73,7 @@ public class ShellArray {
             int arrayLength = length();
             int newArrayLength = arrayLength + 1;
             int[] newArray = new int[newArrayLength];
-            System.arraycopy(array, 0, newArray, 0, arrayLength);
+            arrayCopy(array, 0, newArray, 0, arrayLength);
             newArray[newArrayLength - 1] = number;
             array = newArray;
         }
@@ -87,12 +87,19 @@ public class ShellArray {
         int arrayLength = length();
         int newArrayLength = arrayLength - 1;
         int[] newArray = new int[newArrayLength];
-        System.arraycopy(array, 0, newArray, 0, index);
+        arrayCopy(array, 0, newArray, 0, index);
         if (arrayLength != index) {
-            System.arraycopy(array, index + 1, newArray, index, arrayLength - index - 1);
+            arrayCopy(array, index + 1, newArray, index, arrayLength - index - 1);
         }
         array = newArray;
         return true;
+    }
+
+    private void arrayCopy(int[] sourceArray, int sourceStartPosition,
+                           int[] receiverArray, int receiverStartPosition, int amountCopyElement) {
+        for (int i = 0; i < amountCopyElement; i++) {
+            receiverArray[i + receiverStartPosition] = sourceArray[sourceStartPosition + i];
+        }
     }
 
     @Override

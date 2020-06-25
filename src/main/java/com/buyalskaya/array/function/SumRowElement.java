@@ -1,4 +1,4 @@
-package com.buyalskaya.array.typesort;
+package com.buyalskaya.array.function;
 
 import java.util.function.Function;
 
