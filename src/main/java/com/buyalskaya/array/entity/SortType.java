@@ -11,14 +11,14 @@ public enum SortType implements Function<int[][], int[]> {
     MAX_ROW_ELEMENT(new MaxRowElement()),
     MIN_ROW_ELEMENT(new MinRowElement());
 
-    private Function<int[][], int[]> calculationRowCharacteristics;
+    private Function<int[][], int[]> calculationRowCharacteristic;
 
-    SortType(Function<int[][], int[]> calculationRowCharacteristics) {
-        this.calculationRowCharacteristics = calculationRowCharacteristics;
+    SortType(Function<int[][], int[]> calculationRowCharacteristic) {
+        this.calculationRowCharacteristic = calculationRowCharacteristic;
     }
 
     @Override
     public int[] apply(int[][] matrix) {
-        return calculationRowCharacteristics.apply(matrix);
+        return calculationRowCharacteristic.apply(matrix);
     }
 }
