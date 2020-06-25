@@ -14,7 +14,7 @@ public class MatrixCreatorTest {
     }
 
     @Test
-    public void  createMatrixTestPositive() {
+    public void createMatrixTestPositive() {
         String[][] dataMatrix = {{"1", "4", "7"},
                 {"-5", "0"},
                 {"14", "3", "6", "7"},
@@ -23,26 +23,26 @@ public class MatrixCreatorTest {
                 {-5, 0},
                 {14, 3, 6, 7},
                 {1}};
-        int[][]actual = matrixCreator.createMatrix(dataMatrix);
+        int[][] actual = matrixCreator.createMatrix(dataMatrix);
         assertEquals(actual, expected);
     }
 
     @Test
-    public void  createMatrixTestNegative() {
+    public void createMatrixTestNegative() {
         String[][] dataMatrix = {{"1", "4", "7"},
                 {"-5", "1E-55"},
                 {"14", "3", "6", "7"},
                 {"1"}};
-        int[][] expected = null;
-        int[][]actual = matrixCreator.createMatrix(dataMatrix);
+        int[][] expected = new int[][]{};
+        int[][] actual = matrixCreator.createMatrix(dataMatrix);
         assertEquals(actual, expected);
     }
 
     @Test
-    public void  createMatrixTestNull() {
+    public void createMatrixTestNull() {
         String[][] dataMatrix = null;
-        int[][] expected = null;
-        int[][]actual = matrixCreator.createMatrix(dataMatrix);
+        int[][] expected = new int[][]{};
+        int[][] actual = matrixCreator.createMatrix(dataMatrix);
         assertEquals(actual, expected);
     }
 }

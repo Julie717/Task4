@@ -29,9 +29,9 @@ public class SumRowElementTest {
                         {2},
                         {-1, 0, 2}},
                         new int[]{Integer.MIN_VALUE, 3, 17, 2, 1}},
-                {new int[][]{},new int[]{}},
-                {null, null}
-               };
+                {new int[][]{}, new int[]{}},
+                {null, new int[]{}}
+        };
     }
 
     @Test(dataProvider = "dataForSumRowElement")

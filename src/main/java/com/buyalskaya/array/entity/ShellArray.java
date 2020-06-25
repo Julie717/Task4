@@ -60,7 +60,7 @@ public class ShellArray {
             isCorrect = true;
             for (int value : array) {
                 if (!isCorrectNumber(value)) {
-                    return false;
+                    isCorrect = false;
                 }
             }
         }

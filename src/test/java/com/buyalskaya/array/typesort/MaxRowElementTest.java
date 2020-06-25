@@ -29,9 +29,9 @@ public class MaxRowElementTest {
                         {2},
                         {-1, 0, 2}},
                         new int[]{Integer.MIN_VALUE, 2, 9, 2, 2}},
-                {new int[][]{},new int[]{}},
-                {null, null}
-               };
+                {new int[][]{}, new int[]{}},
+                {null, new int[]{}}
+        };
     }
 
     @Test(dataProvider = "dataForMaxRowElement")

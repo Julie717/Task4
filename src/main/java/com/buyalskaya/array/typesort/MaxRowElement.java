@@ -6,8 +6,8 @@ public class MaxRowElement implements Function<int[][], int[]> {
 
     @Override
     public int[] apply(int[][] matrix) {
-        if (matrix == null ) {
-            return null;
+        if (matrix == null) {
+            return new int[]{};
         }
         int amountRow = matrix.length;
         int[] maxRowElement = new int[amountRow];

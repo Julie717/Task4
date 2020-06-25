@@ -7,7 +7,7 @@ public class MinRowElement implements Function<int[][], int[]> {
     @Override
     public int[] apply(int[][] matrix) {
         if (matrix == null) {
-            return null;
+            return new int[]{};
         }
         int amountRow = matrix.length;
         int[] minRowElement = new int[amountRow];

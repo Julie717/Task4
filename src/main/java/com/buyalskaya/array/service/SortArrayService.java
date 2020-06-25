@@ -8,7 +8,7 @@ public class SortArrayService {
 
     public void bubbleSort(ShellArray shellArray, SortDirection sortDirection) {
         if (shellArray != null && sortDirection != null) {
-            SortDirectionService sortDirectionService=new SortDirectionService();
+            SortDirectionService sortDirectionService = new SortDirectionService();
             NumberComparable numberComparable = sortDirectionService.defineDirectionComparator(sortDirection);
             bubbleSort(shellArray, numberComparable);
         }
@@ -16,7 +16,7 @@ public class SortArrayService {
 
     public void straightInsertionSort(ShellArray shellArray, SortDirection sortDirection) {
         if (shellArray != null && sortDirection != null) {
-            SortDirectionService sortDirectionService=new SortDirectionService();
+            SortDirectionService sortDirectionService = new SortDirectionService();
             NumberComparable numberComparable = sortDirectionService.defineDirectionComparator(sortDirection);
             straightInsertionSort(shellArray, numberComparable);
         }
@@ -24,7 +24,7 @@ public class SortArrayService {
 
     public void straightSelectionSort(ShellArray shellArray, SortDirection sortDirection) {
         if (shellArray != null && sortDirection != null) {
-            SortDirectionService sortDirectionService=new SortDirectionService();
+            SortDirectionService sortDirectionService = new SortDirectionService();
             NumberComparable numberComparable = sortDirectionService.defineDirectionComparator(sortDirection);
             straightSelectionSort(shellArray, numberComparable);
         }

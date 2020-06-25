@@ -152,7 +152,7 @@ public class ArrayServiceTest {
     }
 
     @Test(dataProvider = "dataForSearchFibonacciNumber")
-    public void  searchFibonacciNumberTestParams(ShellArray shellArray, ShellArray expected) {
+    public void searchFibonacciNumberTestParams(ShellArray shellArray, ShellArray expected) {
         ShellArray actual = arrayService.searchFibonacciNumber(shellArray);
         assertEquals(actual, expected);
     }
@@ -160,7 +160,7 @@ public class ArrayServiceTest {
     @DataProvider(name = "dataForSearchNumberWithDifferentDigits")
     public Object[][] dataForSearchNumberWithDifferentDigits() {
         return new Object[][]{
-                {new ShellArray(new int[]{1, 200, 514, 897,597}), new ShellArray(new int[]{514, 897,597})},
+                {new ShellArray(new int[]{1, 200, 514, 897, 597}), new ShellArray(new int[]{514, 897, 597})},
                 {new ShellArray(new int[]{-156, 18, -10, 699}), new ShellArray(new int[]{-156})},
                 {new ShellArray(new int[]{0, -2, -5, 9}), new ShellArray()},
                 {new ShellArray(new int[]{122, 121, 885, 979}), new ShellArray()},

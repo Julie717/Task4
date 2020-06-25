@@ -22,7 +22,7 @@ public class MinRowElementTest {
                         {9, 8, 0},
                         {2},
                         {-1, -1, 2}},
-                        new int[]{-8,1, 0, 2, -1}},
+                        new int[]{-8, 1, 0, 2, -1}},
                 {new int[][]{{},
                         {1, 2},
                         {9, 8, 0},
@@ -30,7 +30,7 @@ public class MinRowElementTest {
                         {-1, 0, 2}},
                         new int[]{Integer.MIN_VALUE, 1, 0, 2, -1}},
                 {new int[][]{}, new int[]{}},
-                {null, null}
+                {null, new int[]{}}
         };
     }
 

@@ -188,7 +188,7 @@ public class SortMatrixServiceTest {
     @Test
     public void bubbleSortMatrixTestMatrixEmpty() {
         matrix = new int[][]{};
-        int[][] expected =  new int[][]{};
+        int[][] expected = new int[][]{};
         try {
             sortMatrixService.bubbleSort(matrix, SortType.SUM, SortDirection.DECREASE);
             assertEquals(matrix, expected);

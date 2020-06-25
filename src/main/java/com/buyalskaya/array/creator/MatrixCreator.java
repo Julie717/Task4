@@ -7,7 +7,7 @@ public class MatrixCreator {
         DataValidator dataValidator = new DataValidator();
         boolean isIntegerData = dataValidator.isIntegerMatrix(data);
         if (!isIntegerData) {
-            return null;
+            return new int[][]{};
         }
         int amountRow = data.length;
         int[][] matrix = new int[amountRow][];
